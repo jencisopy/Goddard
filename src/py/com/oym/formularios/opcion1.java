@@ -5,17 +5,39 @@
  */
 package py.com.oym.formularios;
 
+import com.digitalpersona.Capture;
+import com.digitalpersona.MessageBox;
+import goddard.Goddard;
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import py.com.oym.clases.conexion_maker;
+
 /**
  *
  * @author Cesar
  */
 public class opcion1 extends javax.swing.JFrame {
 
+    conexion_maker cone = new conexion_maker();
+    private static final long serialVersionUID = 1;
+    public static String usuci = "";
+
+    private static final String ACT_SELECTION = "selection";
+    private static final String ACT_CAPTURE = "capture";
+    private static final String ACT_VERIFICATION = "verification";
+    private static final String ACT_EXIT = "exit";
+
     /**
      * Creates new form opción1
      */
     public opcion1() {
         initComponents();
+        txtcedula.setEditable(true);
+        txtcedula.requestFocus();
+
     }
 
     /**
@@ -27,18 +49,44 @@ public class opcion1 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtcedula = new javax.swing.JTextField();
+        btncapturar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnverificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        txtcedula.setEditable(false);
+        txtcedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtcedulaKeyPressed(evt);
+            }
+        });
+
+        btncapturar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btncapturar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/py/com/oym/imagenes/botones/grabar.jpg"))); // NOI18N
+        btncapturar.setText("Capturar");
+        btncapturar.setEnabled(false);
+        btncapturar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncapturarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 153));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Identificador Empleado");
+
+        btnverificar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnverificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/py/com/oym/imagenes/botones/Symbol-Check.png"))); // NOI18N
+        btnverificar.setText("Verificar");
+        btnverificar.setEnabled(false);
+        btnverificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnverificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -47,30 +95,116 @@ public class opcion1 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(87, 87, 87)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(117, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnverificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btncapturar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btncapturar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addComponent(btnverificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(416, 338));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtcedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcedulaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (!txtcedula.getText().matches("")) {
+                verificar();
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe ingresar su dato, no puede quedar vacio");
+            }
+        }
+    }//GEN-LAST:event_txtcedulaKeyPressed
+
+    private void btncapturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncapturarActionPerformed
+        if (null == Goddard.m_reader) {
+            MessageBox.Warning("Reader is not selected");
+        } else {
+            Capture.Run(Goddard.m_reader, false, null, "capture", txtcedula.getText());
+        }
+    }//GEN-LAST:event_btncapturarActionPerformed
+
+    private void btnverificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnverificarActionPerformed
+        if (null == Goddard.m_reader) {
+            MessageBox.Warning("Reader is not selected");
+        } else {
+            Capture.Run(Goddard.m_reader, false, null, "verification", txtcedula.getText());
+        }
+        Guardar();
+    }//GEN-LAST:event_btnverificarActionPerformed
+
+    private void verificar() {
+        try {
+            conexion_maker cone = new conexion_maker();
+            cone.stm = cone.con.createStatement();
+            cone.rs = cone.stm.executeQuery("SELECT codigo as id ,LTRIM(RTRIM(REPLACE(REPLACE(REPLACE(codigo,CHAR(32),'()'),')(',''),'()',CHAR(32)))) AS codigo from datos.dig_captura where codigo = " + txtcedula.getText() + "");
+            while (cone.rs.next()) {
+                usuci = cone.rs.getString("codigo");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(opcion1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (txtcedula.getText().equalsIgnoreCase(usuci)) {
+            javax.swing.JDialog.setDefaultLookAndFeelDecorated(true);
+            javax.swing.JOptionPane.showMessageDialog(this, "Ya existe un registro cargado",
+                    "Empleado", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            btncapturar.setEnabled(false);
+            btnverificar.setEnabled(true);
+            btnverificar.requestFocus();
+        } else {
+            btnverificar.setEnabled(false);
+            btncapturar.setEnabled(true);
+            btncapturar.requestFocus();
+        }
+    }
+
+    private void Guardar() {
+        Object[] opciones = {"Si", "No"};
+        int ret = JOptionPane.showOptionDialog(null, "Desea guardar? ", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+        if (ret == JOptionPane.YES_OPTION) {
+
+            try {
+                conexion_maker cone = new conexion_maker();
+                cone.stm = cone.con.createStatement();
+                cone.stm.executeUpdate("INSERT INTO datos.dig_verification(codigo,fecha) VALUES "
+                        + "('" + txtcedula.getText() + "',SYSDATETIME ( ))");
+                JOptionPane.showMessageDialog(this, "Datos Guardados con Exito!!");
+                Limpiar();
+            } catch (SQLException ex) {
+                Logger.getLogger(opcion1.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al Intentar Guardar", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void Limpiar() {
+        txtcedula.setText("");
+        txtcedula.requestFocus();
+        btncapturar.setEnabled(false);
+        btnverificar.setEnabled(false);
+    }
 
     /**
      * @param args the command line arguments
@@ -109,8 +243,9 @@ public class opcion1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btncapturar;
+    private javax.swing.JButton btnverificar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtcedula;
     // End of variables declaration//GEN-END:variables
 }

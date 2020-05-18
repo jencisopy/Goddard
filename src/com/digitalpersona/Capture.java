@@ -31,7 +31,7 @@ public class Capture
     private ImagePanel m_image;
     private boolean m_bStreaming;
     private String path = "c:/oym/imagenes/";
-    private String empleadoIdentificador = "1282873";
+    private String empleadoIdentificador = "";
     private String action = "verification";
 
     private Capture(Reader reader, boolean bStreaming, String path, String action, String empleadoIdentificador) {
@@ -196,6 +196,7 @@ public class Capture
             Engine engine = UareUGlobal.GetEngine();
             Fmd fmd = engine.CreateFmd(image, Fmd.Format.ANSI_378_2004);
             Files.write(path, fmd.getData());
+            MessageBox.Warning("La imagen fue grabado correctamente");
         } catch (UareUException e) {
             MessageBox.DpError("Engine.CreateFmd()", e);
         } catch (IOException ex) {
