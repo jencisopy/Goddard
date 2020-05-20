@@ -12,12 +12,12 @@ import py.com.oym.clases.conexion_maker;
  *
  * @author Cesar
  */
-public class opcion2 extends javax.swing.JFrame {
+public class RegistrosCaptura extends javax.swing.JFrame {
 
     /**
      * Creates new form opcion2
      */
-    public opcion2() {
+    public RegistrosCaptura() {
         initComponents();
         cargarGrilla();
     }
@@ -112,20 +112,21 @@ public class opcion2 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(opcion2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrosCaptura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(opcion2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrosCaptura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(opcion2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrosCaptura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(opcion2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrosCaptura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new opcion2().setVisible(true);
+                new RegistrosCaptura().setVisible(true);
             }
         });
     }

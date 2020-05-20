@@ -19,7 +19,7 @@ import py.com.oym.clases.conexion_maker;
  *
  * @author Cesar
  */
-public class opcion1 extends javax.swing.JFrame {
+public class CapturaVerificacion extends javax.swing.JFrame {
 
     conexion_maker cone = new conexion_maker();
     private static final long serialVersionUID = 1;
@@ -33,7 +33,7 @@ public class opcion1 extends javax.swing.JFrame {
     /**
      * Creates new form opción1
      */
-    public opcion1() {
+    public CapturaVerificacion() {
         initComponents();
         txtcedula.setEditable(true);
         txtcedula.requestFocus();
@@ -144,6 +144,7 @@ public class opcion1 extends javax.swing.JFrame {
         } else {
             Capture.Run(Goddard.m_reader, false, null, "capture", txtcedula.getText());
         }
+        Guardarcapturar();
     }//GEN-LAST:event_btncapturarActionPerformed
 
     private void btnverificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnverificarActionPerformed
@@ -152,7 +153,7 @@ public class opcion1 extends javax.swing.JFrame {
         } else {
             Capture.Run(Goddard.m_reader, false, null, "verification", txtcedula.getText());
         }
-        Guardar();
+        GuardarVerificar();
     }//GEN-LAST:event_btnverificarActionPerformed
 
     private void verificar() {
@@ -164,7 +165,7 @@ public class opcion1 extends javax.swing.JFrame {
                 usuci = cone.rs.getString("codigo");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(opcion1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CapturaVerificacion.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (txtcedula.getText().equalsIgnoreCase(usuci)) {
             javax.swing.JDialog.setDefaultLookAndFeelDecorated(true);
@@ -180,22 +181,34 @@ public class opcion1 extends javax.swing.JFrame {
         }
     }
 
-    private void Guardar() {
+    private void Guardarcapturar() {
         Object[] opciones = {"Si", "No"};
         int ret = JOptionPane.showOptionDialog(null, "Desea guardar? ", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
         if (ret == JOptionPane.YES_OPTION) {
-
             try {
                 conexion_maker cone = new conexion_maker();
                 cone.stm = cone.con.createStatement();
-                cone.stm.executeUpdate("INSERT INTO datos.dig_verification(codigo,fecha) VALUES "
-                        + "('" + txtcedula.getText() + "',SYSDATETIME ( ))");
+                cone.stm.executeUpdate("INSERT INTO [datos].[dig_captura] (codigo) values ('" + txtcedula.getText() + "')");
                 JOptionPane.showMessageDialog(this, "Datos Guardados con Exito!!");
                 Limpiar();
             } catch (SQLException ex) {
-                Logger.getLogger(opcion1.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CapturaVerificacion.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al Intentar Guardar", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    private void GuardarVerificar() {
+        try {
+            conexion_maker cone = new conexion_maker();
+            cone.stm = cone.con.createStatement();
+            cone.stm.executeUpdate("INSERT INTO datos.dig_verification(codigo,fecha) VALUES "
+                    + "('" + txtcedula.getText() + "',SYSDATETIME ( ))");
+            JOptionPane.showMessageDialog(this, "Datos Guardados con Exito!!");
+            Limpiar();
+        } catch (SQLException ex) {
+            Logger.getLogger(CapturaVerificacion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al Intentar Guardar", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -222,22 +235,39 @@ public class opcion1 extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(opcion1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(opcion1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(opcion1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(opcion1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CapturaVerificacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new opcion1().setVisible(true);
+                new CapturaVerificacion().setVisible(true);
             }
         });
     }
