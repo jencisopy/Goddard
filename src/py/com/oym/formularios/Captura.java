@@ -21,7 +21,6 @@ import py.com.oym.clases.conexion_maker;
  */
 public class Captura extends javax.swing.JFrame {
 
-    conexion_maker cone = new conexion_maker();
     private static final long serialVersionUID = 1;
     public static String usuci = "";
 
@@ -119,9 +118,9 @@ public class Captura extends javax.swing.JFrame {
     private void btncapturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncapturarActionPerformed
         if (null == Goddard.m_reader) {
             MessageBox.Warning("Reader is not selected");
-        } else {
-            Capture.Run(Goddard.m_reader, false, null, "capture", txtcedula.getText());
-        }
+            return;
+        } 
+        Capture.Run(Goddard.m_reader, false, null, "capture", txtcedula.getText());
         guardarCaptura();
     }//GEN-LAST:event_btncapturarActionPerformed
 
@@ -129,9 +128,10 @@ public class Captura extends javax.swing.JFrame {
         try {
             conexion_maker cone = new conexion_maker();
             cone.stm = cone.con.createStatement();
-            cone.rs = cone.stm.executeQuery("SELECT codigo as id ,LTRIM(RTRIM(REPLACE(REPLACE(REPLACE(codigo,CHAR(32),'()'),')(',''),'()',CHAR(32)))) AS codigo from datos.ctacte where codigo = '" + txtcedula.getText() + "'");
+            String comando = "select codigo from datos.ctactesub where codigo = '" + txtcedula.getText().trim() + "'";
+            cone.rs = cone.stm.executeQuery(comando);
             while (cone.rs.next()) {
-                usuci = cone.rs.getString("codigo");
+                usuci = cone.rs.getString("codigo").trim();
             }
         } catch (SQLException ex) {
             Logger.getLogger(Captura.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,7 +142,7 @@ public class Captura extends javax.swing.JFrame {
             javax.swing.JDialog.setDefaultLookAndFeelDecorated(true);
             javax.swing.JOptionPane.showMessageDialog(this, "No existe un registro cargado. No se puede capturar",
                     "Empleado", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            btncapturar.setEnabled(true);
+            btncapturar.setEnabled(false);
             btncapturar.requestFocus();
             txtcedula.setText("");
             txtcedula.requestFocus();

@@ -119,10 +119,10 @@ public class Verificacion extends javax.swing.JFrame {
     private void btnverificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnverificarActionPerformed
         if (null == Goddard.m_reader) {
             MessageBox.Warning("Reader is not selected");
-        } else {
-            Capture.Run(Goddard.m_reader, false, null, "verification", txtcedula.getText());
-        }
-        guardarVerificar();
+            return;
+        } 
+        boolean result = Capture.Run(Goddard.m_reader, false, null, "verification", txtcedula.getText());
+        guardarVerificar(result);
     }//GEN-LAST:event_btnverificarActionPerformed
 
     private void verificar() {
@@ -146,12 +146,17 @@ public class Verificacion extends javax.swing.JFrame {
         }
     }
 
-    private void guardarVerificar() {
+    private void guardarVerificar(boolean result) {
         try {
             conexion_maker cone = new conexion_maker();
             cone.stm = cone.con.createStatement();
-            cone.stm.executeUpdate("INSERT INTO datos.dig_verification(codigo,fecha) VALUES "
-                    + "('" + txtcedula.getText() + "',SYSDATETIME ( ))");
+            String coincide = "0";
+            if (result){
+                coincide = "1";
+            }
+            String insertCmd = "INSERT INTO datos.dig_verification(codigo,fecha,coincide) VALUES "
+                    + "('" + txtcedula.getText() + "',SYSDATETIME ( ),"+coincide+")";
+            cone.stm.executeUpdate(insertCmd);
             JOptionPane.showMessageDialog(this, "Datos Guardados con Exito!!");
             limpiar();
         } catch (SQLException ex) {

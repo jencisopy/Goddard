@@ -33,6 +33,7 @@ public class Capture
     private String path = "c:/oym/imagenes/";
     private String empleadoIdentificador = "";
     private String action = "verification";
+    private boolean resultado=false;
 
     private Capture(Reader reader, boolean bStreaming, String path, String action, String empleadoIdentificador) {
         if (path != null){
@@ -183,10 +184,11 @@ public class Capture
         }
     }
 
-    public static void Run(Reader reader, boolean bStreaming, String path, String action, String empleado) {
+    public static boolean Run(Reader reader, boolean bStreaming, String path, String action, String empleado) {
         JDialog dlg = new JDialog((JDialog) null, "Put your finger on the reader", true);
         Capture capture = new Capture(reader, bStreaming, path, action, empleado);
         capture.doModal(dlg);
+        return capture.resultado;
     }
 
     private void saveImage(Fid image) {
@@ -221,8 +223,10 @@ public class Capture
                 int target_falsematch_rate = Engine.PROBABILITY_ONE; //target rate is 0.0001
                 if (falsematch_rate < target_falsematch_rate) {
                     MessageBox.Warning("Coincide la lectura");
+                    resultado = true;
                 } else {
                     MessageBox.Warning("NO COINCIDE");
+                    resultado = false;
                 }
             } catch (UareUException e) {
                 MessageBox.DpError("Engine.CreateFmd()", e);
