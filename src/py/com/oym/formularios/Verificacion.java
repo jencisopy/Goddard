@@ -69,7 +69,6 @@ public class Verificacion extends javax.swing.JFrame {
         jLabel1.setText("Identificador Empleado");
 
         btnverificar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnverificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/py/com/oym/imagenes/botones/Symbol-Check.png"))); // NOI18N
         btnverificar.setText("Verificar");
         btnverificar.setEnabled(false);
         btnverificar.addActionListener(new java.awt.event.ActionListener() {

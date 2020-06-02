@@ -63,7 +63,6 @@ public class Captura extends javax.swing.JFrame {
         });
 
         btncapturar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btncapturar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/py/com/oym/imagenes/botones/grabar.jpg"))); // NOI18N
         btncapturar.setText("Capturar");
         btncapturar.setEnabled(false);
         btncapturar.addActionListener(new java.awt.event.ActionListener() {
